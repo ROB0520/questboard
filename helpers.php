@@ -13,7 +13,7 @@ function basePath($path = "")
 /**
  * Load View
  * @param string $name View File to Load
- * @return void
+ * @return string|null Full path when loaded, otherwise null
  */
 function loadView($name)
 {
@@ -22,18 +22,21 @@ function loadView($name)
 
 		if (file_exists($viewPath)) {
 			require $viewPath;
+			return $viewPath;
 		} else {
 			echo "<p>View '{$name}' not found.</p>";
+			return null;
 		}
 	} else {
 		echo "<p>No view name provided.</p>";
+		return null;
 	}
 }
 
 /**
  * Load Partial
  * @param string $name Partial File to Load
- * @return void
+ * @return string|null Full path when loaded, otherwise null
  */
 function loadPartial($name)
 {
@@ -42,11 +45,14 @@ function loadPartial($name)
 
 		if (file_exists($partialPath)) {
 			require $partialPath;
+			return $partialPath;
 		} else {
 			echo "<p>Partial '{$name}' not found.</p>";
+			return null;
 		}
 	} else {
 		echo "<p>No partial name provided.</p>";
+		return null;
 	}
 }
 
