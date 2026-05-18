@@ -93,6 +93,8 @@ class ListingController
 			$query = "INSERT INTO listings ($fields) VALUES ($values)";
 			$this->db->query($query, $newListingData);
 
+			$_SESSION['success_msg'] = "Listing created successfully.";
+
 			redirect('/listings');
 		}
 	}
@@ -113,6 +115,8 @@ class ListingController
 		}
 
 		$this->db->query('DELETE FROM listings WHERE id = :id', ['id' => $listingId]);
+
+		$_SESSION['success_msg'] = "Listing deleted successfully.";
 
 		redirect('/listings');
 	}
