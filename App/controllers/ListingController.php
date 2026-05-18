@@ -117,8 +117,8 @@ class ListingController
 		}
 
 		// Ensure the user is authorized to delete this listing (e.g., they are the owner)
-		if (Authorization::isOwner($listing['user_id'])) {
-			Session::setFlashMessage('success_msg', "You do not have permission to delete this listing.");
+		if (Authorization::isOwner($listing->user_id)) {
+			Session::setFlashMessage('error_msg', "You do not have permission to delete this listing.");
 			redirect('/listings/' . $listingId);
 		}
 
@@ -138,11 +138,17 @@ class ListingController
 			exit;
 		}
 
-		$listing = $this->db->query('SELECT * FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
+		$listing = $this->db->query('SELECT user_id FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
 
 		if (!$listing) {
 			ErrorController::notFound("The listing you are trying to edit could not be found.");
 			exit;
+		}
+
+		// Ensure the user is authorized to edit this listing (e.g., they are the owner)
+		if (Authorization::isOwner($listing->user_id)) {
+			Session::setFlashMessage('error_msg', "You do not have permission to edit this listing.");
+			redirect('/listings/' . $listingId);
 		}
 
 		loadView('listings/edit', ['listing' => $listing]);
@@ -162,6 +168,12 @@ class ListingController
 		if (!$listing) {
 			ErrorController::notFound("The listing you are trying to update could not be found.");
 			exit;
+		}
+
+		// Ensure the user is authorized to update this listing (e.g., they are the owner)
+		if (Authorization::isOwner($listing->user_id)) {
+			Session::setFlashMessage('error_msg', "You do not have permission to update this listing.");
+			redirect('/listings/' . $listingId);
 		}
 
 		$allowedFields = ['title', 'description', 'salary', 'requirements', 'benefits', 'tags', 'company', 'address', 'city', 'state', 'phone', 'email'];

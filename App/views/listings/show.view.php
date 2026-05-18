@@ -1,3 +1,9 @@
+<?php
+
+use Framework\Authorization;
+
+?>
+
 <?= loadPartial('head') ?>
 <?= loadPartial('navbar') ?>
 <?= loadPartial('top-banner') ?>
@@ -11,15 +17,17 @@
 				<i class="fa fa-arrow-alt-circle-left"></i>
 				Back To Listings
 			</a>
-			<div class="flex space-x-4 ml-4">
-				<a href="/listings/<?= $listing->id ?? "#" ?>/edit" class="px-4 py-2 bg-accent hover:brightness-90 text-white rounded">Edit</a>
-				<!-- Delete Form -->
-				<form method="POST">
-					<input type="hidden" name="_method" value="DELETE">
-					<button type="submit" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">Delete</button>
-				</form>
-				<!-- End Delete Form -->
-			</div>
+			<?php if (isset($listing) && Authorization::isOwner($listing->user_id)) : ?>
+				<div class="flex space-x-4 ml-4">
+					<a href="/listings/<?= $listing->id ?? "#" ?>/edit" class="px-4 py-2 bg-accent hover:brightness-90 text-white rounded">Edit</a>
+					<!-- Delete Form -->
+					<form method="POST">
+						<input type="hidden" name="_method" value="DELETE">
+						<button type="submit" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">Delete</button>
+					</form>
+					<!-- End Delete Form -->
+				</div>
+			<?php endif; ?>
 		</div>
 		<div class="p-4">
 			<h2 class="text-xl font-semibold <?= !isset($listing) ? "text-red-600 italic" : "" ?>">
