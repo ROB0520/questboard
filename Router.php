@@ -72,7 +72,6 @@ class Router
 	 */
 	public function route($uri, $method)
 	{
-		echo "Routing request: {$method} {$uri}"; // Debugging output
 		foreach ($this->routes as $route) {
 			if ($route['uri'] === $uri && $route['method'] === $method) {
 				require basePath($route['controller']);

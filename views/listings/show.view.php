@@ -19,21 +19,19 @@
 			</div>
 		</div>
 		<div class="p-4">
-			<h2 class="text-xl font-semibold">Software Engineer</h2>
+			<h2 class="text-xl font-semibold <?= !isset($listing) ? "text-red-600 italic" : "" ?>">
+				<?= isset($listing) ? $listing->title : 'Job Title Not Found' ?>
+			</h2>
 			<p class="text-gray-700 text-lg mt-2">
-				We are seeking a skilled software engineer to develop high-quality
-				software solutions.
+				<?= isset($listing) ? $listing->description : 'No description available for this listing.' ?>
 			</p>
-			<ul class="my-4 bg-background p-4">
-				<li class="mb-2"><strong>Salary:</strong> $80,000</li>
+			<ul class="my-4 bg-background p-4 inset-shadow-sm rounded">
+				<li class="mb-2"><strong>Salary:</strong> <?= isset($listing) ? formatSalary($listing->salary) : 'N/A' ?></li>
 				<li class="mb-2">
-					<strong>Location:</strong> New York
-					<span
-						class="text-xs bg-accent text-white rounded-full px-2 py-1 ml-2">Local</span>
+					<strong>Location:</strong> <?= isset($listing) ? $listing->city . ', ' . $listing->state : 'N/A' ?>
 				</li>
 				<li class="mb-2">
-					<strong>Tags:</strong> <span>Development</span>,
-					<span>Coding</span>
+					<strong>Tags:</strong> <?= isset($listing) ? $listing->tags : 'N/A' ?>
 				</li>
 			</ul>
 		</div>
@@ -42,25 +40,27 @@
 
 <section class="container mx-auto p-4">
 	<h2 class="text-xl font-semibold mb-4">Job Details</h2>
-	<div class="rounded-lg shadow-md bg-card p-4">
-		<h3 class="text-lg font-semibold mb-2 text-link">
+	<div class="rounded-lg shadow-md bg-card text-black p-4">
+		<h3 class="text-lg font-semibold mb-2 text-primary">
 			Job Requirements
 		</h3>
 		<p>
-			Bachelors degree in Computer Science or related field, 3+ years of
-			software development experience
+			<?= isset($listing) ? $listing->requirements : 'No requirements specified for this listing.' ?>
 		</p>
-		<h3 class="text-lg font-semibold mt-4 mb-2 text-link">Benefits</h3>
-		<p>Healthcare, 401(k) matching, flexible work hours</p>
+		<h3 class="text-lg font-semibold mt-4 mb-2 text-primary">Benefits</h3>
+		<p>
+			<?= isset($listing) ? $listing->benefits : 'No benefits specified for this listing.' ?>
+		</p>
 	</div>
 	<p class="my-5">
 		Put "Job Application" as the subject of your email and attach your
 		resume.
 	</p>
+	<!-- The Subject line of the email will be pre-filled with the job title for better context -->
 	<a
-		href="mailto:manager@company.com"
+		href="<?= isset($listing) ? 'mailto:' . $listing->email . '?subject=' . rawurlencode('Job Application for ' . $listing->title) : '#' ?>"
 		class="block w-full text-center px-5 py-2.5 shadow-sm rounded border text-base font-medium cursor-pointer text-tag-foreground bg-tag hover:bg-indigo-200">
-		Apply Now
+		<?= isset($listing) ? "Apply Now" : "Email Not Available" ?>
 	</a>
 </section>
 
