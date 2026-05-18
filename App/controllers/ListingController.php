@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Framework\Database;
 use Framework\Validation;
+use Framework\Session;
 
 class ListingController
 {
@@ -53,7 +54,7 @@ class ListingController
 
 		$newListingData = array_intersect_key($_POST, array_flip($allowedFields));
 
-		$newListingData['user_id'] = 1; // For simplicity, we're hardcoding the user ID here. In a real application, you would get this from the authenticated user.
+		$newListingData['user_id'] = Session::get('user')['id'];
 
 		$newListingData = array_map('sanitizeInput', $newListingData);
 
