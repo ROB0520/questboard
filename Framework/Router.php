@@ -77,17 +77,40 @@ class Router
 	 * @param string $method
 	 * return void
 	 */
-	public function route($uri, $method)
+	public function route($uri)
 	{
-		foreach ($this->routes as $route) {
-			if ($route['uri'] === $uri && $route['method'] === $method) {
-				// Extract controller and its method
-				$controller = 'App\\controllers\\' . $route['controller'];
-				$controllerMethod = $route['controllerMethod'];
+		$requestMethod = $_SERVER['REQUEST_METHOD'];
 
-				$controllerInstance = new $controller();
-				$controllerInstance->$controllerMethod(); // Call the controller method
-				return;
+		foreach ($this->routes as $route) {
+			// Split the URI into segments for more flexible matching	
+			$uriSegments = explode('/', trim($uri, '/'));
+
+			// Split the route
+			$routeSegments = explode('/', trim($route['uri'], '/'));
+
+			if (count($uriSegments) === count($routeSegments) && strtoupper($route['method']) === $requestMethod) {
+				$params = [];
+
+				$match = true;
+
+				for ($i = 0; $i < count($routeSegments); $i++) {
+					if ($routeSegments[$i] !== $uriSegments[$i] && !preg_match('/\{(.+?)\}/', $routeSegments[$i])) {
+						$match = false;
+						break;
+					} elseif (preg_match('/\{(.+?)\}/', $routeSegments[$i], $matches)) {
+						$params[$matches[1]] = $uriSegments[$i];
+					}
+				}
+
+				if ($match) {
+					// Extract controller and its method
+					$controller = 'App\\controllers\\' . $route['controller'];
+					$controllerMethod = $route['controllerMethod'];
+
+					$controllerInstance = new $controller();
+					$controllerInstance->$controllerMethod($params); // Call the controller method
+					return;
+				}
 			}
 		}
 

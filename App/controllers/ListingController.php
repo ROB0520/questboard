@@ -29,9 +29,10 @@ class ListingController
 		loadView('listings/create');
 	}
 
-	public function show()
+	public function show($params)
 	{
-		$listingId = $_GET['id'] ?? null;
+
+		$listingId = $params['id'] ?? null;
 		$params = ['id' => $listingId];
 
 		$listing = $this->db->query('SELECT * FROM listings WHERE id = :id', $params)->fetch();
