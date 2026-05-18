@@ -8,6 +8,11 @@
 		<p class="text-center text-2xl mb-4">
 			<?= $message ?? "The page you are looking for could not be found." ?>
 		</p>
+		<div class="text-center">
+			<a href="/" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded">
+				Go Back Home
+			</a>
+		</div>
 	</div>
 </section>
 
