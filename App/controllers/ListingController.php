@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Framework\Database;
 use Framework\Validation;
 use Framework\Session;
+use Framework\Authorization;
 
 class ListingController
 {
@@ -109,10 +110,16 @@ class ListingController
 			exit;
 		}
 
-		$listing = $this->db->query('SELECT id FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
+		$listing = $this->db->query('SELECT user_id FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
 		if (!$listing) {
 			ErrorController::notFound("The listing you are trying to delete could not be found.");
 			exit;
+		}
+
+		// Ensure the user is authorized to delete this listing (e.g., they are the owner)
+		if (Authorization::isOwner($listing['user_id'])) {
+			$_SESSION['error_msg'] = "You are not authorized to delete this listing.";
+			redirect('/listings/' . $listingId);
 		}
 
 		$this->db->query('DELETE FROM listings WHERE id = :id', ['id' => $listingId]);
