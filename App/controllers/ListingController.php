@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Framework\Database;
+use Framework\Validation;
 
 class ListingController
 {
@@ -44,5 +45,32 @@ class ListingController
 		}
 
 		loadView('listings/show', ['listing' => $listing]);
+	}
+
+	public function store()
+	{
+		$allowedFields = ['title', 'description', 'salary', 'requirements', 'benefits', 'company', 'address', 'city', 'state', 'phone', 'email'];
+
+		$newListingData = array_intersect_key($_POST, array_flip($allowedFields));
+
+		$newListingData['user_id'] = 1; // For simplicity, we're hardcoding the user ID here. In a real application, you would get this from the authenticated user.
+
+		$newListingData = array_map('sanitizeInput', $newListingData);
+
+		$requiredFields = ['title', 'description', 'email', 'city', 'state'];
+
+		$errors = [];
+
+		foreach ($requiredFields as $field) {
+			if (empty($newListingData[$field]) || !Validation::string($field, $newListingData[$field])) {
+				$errors[$field] = ucfirst($field) . " is required and must be valid.";
+			}
+		}
+
+		if (!empty($errors)) {
+			loadView('listings/create', ['errors' => $errors, 'old' => $newListingData]);
+		} else {
+			echo "New listing data is valid. Ready to save to the database.";
+		}
 	}
 }

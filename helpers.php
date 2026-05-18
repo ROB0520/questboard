@@ -62,13 +62,18 @@ function loadPartial($name)
  * Inspect Variable
  * 
  * @param mixed $value
+ * @param bool $die Whether to stop execution after dumping the variable
  * @return void
  */
-function inspect($value)
+function inspect($value, $die = false)
 {
 	echo '<pre>';
-	print_r($value);
+	var_dump($value);
 	echo '</pre>';
+
+	if ($die) {
+		die();
+	}
 }
 
 /**
@@ -80,4 +85,15 @@ function inspect($value)
 function formatSalary($salary)
 {
 	return '$' . number_format($salary, 2);
+}
+
+/**
+ * Sanitize Input
+ * 
+ * @param string $dirty The input string to sanitize
+ * @return string The sanitized input string
+ */
+function sanitizeInput($dirty)
+{
+	return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
 }
