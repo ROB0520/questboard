@@ -74,12 +74,19 @@ class Router
 	/**
 	 * Route the request
 	 * @param string $uri
-	 * @param string $method
 	 * return void
 	 */
 	public function route($uri)
 	{
 		$requestMethod = $_SERVER['REQUEST_METHOD'];
+
+		// Check for method override (for PUT and DELETE requests from forms)
+		if ($requestMethod === 'POST' && isset($_POST['_method'])) {
+			$overrideMethod = strtoupper($_POST['_method']);
+			if (in_array($overrideMethod, ['PUT', 'DELETE'])) {
+				$requestMethod = $overrideMethod;
+			}
+		}
 
 		foreach ($this->routes as $route) {
 			// Split the URI into segments for more flexible matching	

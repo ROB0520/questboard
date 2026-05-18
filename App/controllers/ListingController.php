@@ -96,4 +96,24 @@ class ListingController
 			redirect('/listings');
 		}
 	}
+
+	public function destroy($params)
+	{
+		$listingId = $params['id'] ?? null;
+
+		if (!$listingId) {
+			ErrorController::notFound("The listing you are trying to delete could not be found.");
+			exit;
+		}
+
+		$listing = $this->db->query('SELECT id FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
+		if (!$listing) {
+			ErrorController::notFound("The listing you are trying to delete could not be found.");
+			exit;
+		}
+
+		$this->db->query('DELETE FROM listings WHERE id = :id', ['id' => $listingId]);
+
+		redirect('/listings');
+	}
 }
