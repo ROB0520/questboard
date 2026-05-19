@@ -19,10 +19,10 @@ A small custom PHP MVC-style web application for listing jobs and showcasing a c
 - Blog (other case study page): `/blog` — currently served by [`App/controllers/BlogController.php`](App/controllers/BlogController.php#L1) and view in [`App/views/blog.view.php`](App/views/blog.view.php#L1).
 
 ## Image Gallery
-![QuestBoard Home aka JobSeeker](screenshots/questboard-home.png)
+![QuestBoard Home aka JobSeeker](./screenshots/questboard-home.png)
 *QuestBoard's home page (aka JobSeeker), showcasing the job listings and user authentication features.*
 
-![Blog page](screenshots/blog.png)
+![Blog page](./screenshots/blog.png)
 *The blog page, for the other case study.*
 
 ## Important files
