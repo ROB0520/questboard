@@ -4,7 +4,9 @@
 <div class="flex justify-center items-center mt-20">
 	<div class="bg-card p-8 rounded shadow-md w-full md:w-500 mx-6 border max-w-xl">
 		<h2 class="text-4xl text-center font-bold mb-4">Enter The Guild Hall</h2>
-		<?= loadPartial('message') ?>
+
+		<?= loadPartial('errors', ['errors' => $errors ?? []]) ?>
+
 		<form method="POST" action="/auth/login">
 			<div class="mb-4">
 				<input
