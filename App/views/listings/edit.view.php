@@ -4,35 +4,34 @@
 
 <section class="flex justify-center items-center mt-20">
 	<div class="bg-card p-8 rounded-lg shadow-md w-full md:w-600 mx-6">
-		<h2 class="text-4xl text-center font-bold mb-4">Update Job Listing</h2>
+		<h2 class="text-4xl text-center font-bold mb-4">Update Quest</h2>
 
 		<form method="POST" action="/listings/<?= $listing->id ?? '' ?>">
 			<input type="hidden" name="_method" value="PUT">
 			<h2 class="text-2xl font-bold mb-6 text-center text-gray-500">
-				Job Info
+				Quest Details
 			</h2>
-
 			<?= loadPartial('errors', ['errors' => $errors ?? []]) ?>
 
 			<div class="mb-4">
 				<input
 					type="text"
 					name="title"
-					placeholder="Job Title"
+					placeholder="Job Title (Title)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->title ?? '' ?>" />
 			</div>
 			<div class="mb-4">
 				<textarea
 					name="description"
-					placeholder="Job Description"
+					placeholder="Job Description (Description)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"><?= $listing->description ?? '' ?></textarea>
 			</div>
 			<div class="mb-4">
 				<input
 					type="text"
 					name="salary"
-					placeholder="Annual Salary"
+					placeholder="Contract Reward (Salary)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->salary ?? '' ?>" />
 			</div>
@@ -40,7 +39,7 @@
 				<input
 					type="text"
 					name="requirements"
-					placeholder="Requirements"
+					placeholder="Required Skills (Requirements)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->requirements ?? '' ?>" />
 			</div>
@@ -48,7 +47,7 @@
 				<input
 					type="text"
 					name="benefits"
-					placeholder="Benefits"
+					placeholder="Guild Rewards (Benefits)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->benefits ?? '' ?>" />
 			</div>
@@ -56,18 +55,18 @@
 				<input
 					type="text"
 					name="tags"
-					placeholder="Tags (comma separated)"
+					placeholder="Specializations (Tags, comma separated)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->tags ?? '' ?>" />
 			</div>
 			<h2 class="text-2xl font-bold mb-6 text-center text-gray-500">
-				Company Info & Location
+				Guild Information & Region
 			</h2>
 			<div class="mb-4">
 				<input
 					type="text"
 					name="company"
-					placeholder="Company Name"
+					placeholder="Guild Name (Company)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->company ?? '' ?>" />
 			</div>
@@ -75,7 +74,7 @@
 				<input
 					type="text"
 					name="address"
-					placeholder="Address"
+					placeholder="Guild Hall Address (Address)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->address ?? '' ?>" />
 			</div>
@@ -83,7 +82,7 @@
 				<input
 					type="text"
 					name="city"
-					placeholder="City"
+					placeholder="Kingdom (City)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->city ?? '' ?>" />
 			</div>
@@ -91,7 +90,7 @@
 				<input
 					type="text"
 					name="state"
-					placeholder="State"
+					placeholder="Region (State)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->state ?? '' ?>" />
 			</div>
@@ -99,7 +98,7 @@
 				<input
 					type="text"
 					name="phone"
-					placeholder="Phone"
+					placeholder="Guild Contact Number (Phone)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->phone ?? '' ?>" />
 			</div>
@@ -107,13 +106,13 @@
 				<input
 					type="email"
 					name="email"
-					placeholder="Email Address For Applications"
+					placeholder="Guild Messenger Address For Applications (Email)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $listing->email ?? '' ?>" />
 			</div>
 			<button
 				class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-3 rounded focus:outline-none">
-				Save
+				Update Quest
 			</button>
 			<a
 				href="/listings/<?= $listing->id ?? '' ?>"

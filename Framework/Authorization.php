@@ -17,7 +17,7 @@ class Authorization
 	{
 		$sessionUser = Session::get('user');
 
-		if ($sessionUser !== null && isset($sessionUser['id'])) {
+		if ($sessionUser !== null && isset($sessionUser)) {
 			$sessionUserId = (int) $sessionUser['id'];
 
 			return $sessionUserId === $listingId;

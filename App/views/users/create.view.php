@@ -3,8 +3,8 @@
 
 
 <div class="flex justify-center items-center mt-20">
-	<div class="bg-card p-8 rounded shadow-md w-full md:w-500 mx-6 border">
-		<h2 class="text-4xl text-center font-bold mb-4">Register</h2>
+	<div class="bg-card p-8 rounded shadow-md w-full md:w-500 mx-6 border max-w-xl">
+		<h2 class="text-4xl text-center font-bold mb-4">Join The Adventurer Guild</h2>
 
 		<?= loadPartial('errors', ['errors' => $errors ?? []]) ?>
 
@@ -13,7 +13,7 @@
 				<input
 					type="text"
 					name="name"
-					placeholder="Full Name"
+					placeholder="Adventurer Name (Full Name)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $old['name'] ?? '' ?>" />
 			</div>
@@ -21,7 +21,7 @@
 				<input
 					type="email"
 					name="email"
-					placeholder="Email Address"
+					placeholder="Guild Messenger Address (Email)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $old['email'] ?? '' ?>" />
 			</div>
@@ -29,7 +29,7 @@
 				<input
 					type="text"
 					name="city"
-					placeholder="City"
+					placeholder="Kingdom (City)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $old['city'] ?? '' ?>" />
 			</div>
@@ -37,7 +37,7 @@
 				<input
 					type="text"
 					name="state"
-					placeholder="State"
+					placeholder="Region (State)"
 					class="w-full px-4 py-2 border rounded focus:outline-none"
 					value="<?= $old['state'] ?? '' ?>" />
 			</div>
@@ -45,14 +45,14 @@
 				<input
 					type="password"
 					name="password"
-					placeholder="Password"
+					placeholder="Guild Passphrase (Password)"
 					class="w-full px-4 py-2 border rounded focus:outline-none" />
 			</div>
 			<div class="mb-4">
 				<input
 					type="password"
 					name="password_confirm"
-					placeholder="Confirm Password"
+					placeholder="Confirm Passphrase (Confirm Password)"
 					class="w-full px-4 py-2 border rounded focus:outline-none" />
 			</div>
 			<button
@@ -61,8 +61,8 @@
 			</button>
 
 			<p class="mt-4 text-gray-500">
-				Already have an account?
-				<a class="text-accent" href="/auth/login">Login</a>
+				Already part of the guild?
+				<a class="text-accent" href="/auth/login">Enter Guild Hall</a>
 			</p>
 		</form>
 	</div>

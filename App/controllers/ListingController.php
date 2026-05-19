@@ -95,7 +95,7 @@ class ListingController
 			$query = "INSERT INTO listings ($fields) VALUES ($values)";
 			$this->db->query($query, $newListingData);
 
-			Session::setFlashMessage('success_msg', "Listing created successfully.");
+			Session::setFlashMessage('success_msg', "Quest published successfully.");
 
 			redirect('/listings');
 		}
@@ -106,25 +106,25 @@ class ListingController
 		$listingId = $params['id'] ?? null;
 
 		if (!$listingId) {
-			ErrorController::notFound("The listing you are trying to delete could not be found.");
+			ErrorController::notFound("The quest you are trying to delete could not be found.");
 			exit;
 		}
 
 		$listing = $this->db->query('SELECT user_id FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
 		if (!$listing) {
-			ErrorController::notFound("The listing you are trying to delete could not be found.");
+			ErrorController::notFound("The quest you are trying to delete could not be found.");
 			exit;
 		}
 
 		// Ensure the user is authorized to delete this listing (e.g., they are the owner)
 		if (!Authorization::isOwner($listing->user_id)) {
-			Session::setFlashMessage('error_msg', "You do not have permission to delete this listing.");
+			Session::setFlashMessage('error_msg', "You do not have permission to delete this quest.");
 			redirect('/listings/' . $listingId);
 		}
 
 		$this->db->query('DELETE FROM listings WHERE id = :id', ['id' => $listingId]);
 
-		Session::setFlashMessage('success_msg', "Listing deleted successfully.");
+		Session::setFlashMessage('success_msg', "Quest abandoned successfully.");
 
 		redirect('/listings');
 	}
@@ -134,20 +134,20 @@ class ListingController
 		$listingId = $params['id'] ?? null;
 
 		if (!$listingId) {
-			ErrorController::notFound("The listing you are trying to edit could not be found.");
+			ErrorController::notFound("The quest you are trying to edit could not be found.");
 			exit;
 		}
 
-		$listing = $this->db->query('SELECT user_id FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
+		$listing = $this->db->query('SELECT * FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
 
 		if (!$listing) {
-			ErrorController::notFound("The listing you are trying to edit could not be found.");
+			ErrorController::notFound("The quest you are trying to edit could not be found.");
 			exit;
 		}
 
 		// Ensure the user is authorized to edit this listing (e.g., they are the owner)
 		if (!Authorization::isOwner($listing->user_id)) {
-			Session::setFlashMessage('error_msg', "You do not have permission to edit this listing.");
+			Session::setFlashMessage('error_msg', "You do not have permission to edit this quest.");
 			redirect('/listings/' . $listingId);
 		}
 
@@ -159,20 +159,20 @@ class ListingController
 		$listingId = $params['id'] ?? null;
 
 		if (!$listingId) {
-			ErrorController::notFound("The listing you are trying to update could not be found.");
+			ErrorController::notFound("The quest you are trying to update could not be found.");
 			exit;
 		}
 
 		$listing = $this->db->query('SELECT * FROM listings WHERE id = :id', ['id' => $listingId])->fetch();
 
 		if (!$listing) {
-			ErrorController::notFound("The listing you are trying to update could not be found.");
+			ErrorController::notFound("The quest you are trying to update could not be found.");
 			exit;
 		}
 
 		// Ensure the user is authorized to update this listing (e.g., they are the owner)
 		if (!Authorization::isOwner($listing->user_id)) {
-			Session::setFlashMessage('error_msg', "You do not have permission to update this listing.");
+			Session::setFlashMessage('error_msg', "You do not have permission to update this quest.");
 			redirect('/listings/' . $listingId);
 		}
 
@@ -206,7 +206,7 @@ class ListingController
 
 			$this->db->query($query, array_merge($updatedListingData, ['id' => $listingId]));
 
-			Session::setFlashMessage('success_msg', "Listing updated successfully.");
+			Session::setFlashMessage('success_msg', "Quest updated successfully.");
 
 			redirect('/listings/' . $listingId);
 		}

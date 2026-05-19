@@ -137,6 +137,6 @@ class Router
 			}
 		}
 
-		ErrorController::notFound("The page you are looking for could not be found.");
+		ErrorController::notFound("This quest has vanished beyond the kingdom borders.");
 	}
 }
