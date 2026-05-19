@@ -1,7 +1,7 @@
 <footer class="border-t border-white/10 mt-6">
 	<div class="grid gap-10 md:grid-cols-3 px-6 pt-6">
 		<div>
-			<h2 class="text-3xl font-bold text-accent"> QuestBoard </h2>
+			<h2 class="text-3xl font-bold text-accent"> Quest<span class="text-white">Board</span> </h2>
 			<p class="mt-4 text-sm leading-relaxed text-gray-400"> A guild board for adventurers seeking legendary quests across the realm. </p>
 		</div>
 		<div>
